@@ -167,3 +167,34 @@ if(hasFruitInsideIt == true){
 }
 
 ```
+**SOAP project / Groovy script - Working with Map**
+
+```groovy
+//How to define a map?
+def countries = ['IND' : 'India', 
+                 'USA' : 'United States of America', 
+                 'SIN' : 'Singapore', 
+                 'AUS' : 'Australia',
+                 'RUS' : 'Russia']
+//Find a country in the map?
+String countryIamLookingFor = 'ABC'
+
+boolean foundCountry = countries.containsKey(countryIamLookingFor)
+
+log.info "Found country $countryIamLookingFor ? : $foundCountry"
+//How to get the country name for the given country code?
+
+String countryName = countries.get(countryIamLookingFor)
+
+if(foundCountry==true){
+	log.info "Country name is $countryName"
+}else{
+	log.error "Sorry con't find the country"
+}
+
+//Adding an entry to map
+countries.put('GB', 'Great Britain')
+
+log.info countries
+
+```
