@@ -3,6 +3,7 @@
 **SOAP project / Groovy script - Data Source**
 
 ```groovy
+//Order of Test Steps:
 //1. Groovy Script - Data source
 //2. Property - Looper (in custom properties create 5 empty pr. (ex: Total, Value, Count, Next, StopLoop))
 //3. TestStep Request
