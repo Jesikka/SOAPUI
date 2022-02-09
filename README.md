@@ -1,6 +1,69 @@
 # SOAPUI
 
+**SOAP project / Groovy script - Data Source**
 
+```groovy
+//1. Groovy Script - Data source
+//2. Property - Looper (in custom properties create 5 empty pr. (ex: Total, Value, Count, Next, StopLoop))
+//3. TestStep Request
+//4. Groovy Script - Data Loop
+import com.eviware.soapui.support.XmlHolder
+def myTestCase = context.testCase
+def counter,next,previous,size,tempValue
+
+File tickerEnumFile = new File("C:/Users/ib075/Desktop/SOAPUI/input.txt")
+List lines = tickerEnumFile.readLines()
+size = lines.size.toInteger()
+propTestStep = myTestCase.getTestStepByName("Property - Looper")
+propTestStep.setPropertyValue("Total", size.toString())
+counter = propTestStep.getPropertyValue("Count").toString()
+log.info  "Counter : ${(counter)}"
+counter = counter.toInteger()
+next = (counter > size-2? 0: counter+1)
+tempValue = lines[counter]
+propTestStep.setPropertyValue("Value", tempValue)
+propTestStep.setPropertyValue("Count", next.toString())
+next++
+log.info "Reading line : ${(counter+1)} / $lines.size"
+propTestStep.setPropertyValue("Next", next.toString())
+log.info "Value '$tempValue' -- updated in $propTestStep.name"
+
+if (counter == size-1)
+{
+   propTestStep.setPropertyValue("StopLoop", "T")
+   log.info "Setting the stoploop property now..."
+}
+else if (counter==0)
+{
+   def runner = new com.eviware.soapui.impl.wsdl.testcase.WsdlTestCaseRunner(testRunner.testCase, null)
+   propTestStep.setPropertyValue("StopLoop", "F")
+}
+else
+{
+   propTestStep.setPropertyValue("StopLoop", "F")
+}
+
+```
+**SOAP project / Groovy script - Data Loop**
+
+```groovy
+def myTestCase = context.testCase
+ 
+def runner
+propTestStep = myTestCase.getTestStepByName("Property - Looper") // get the Property TestStep
+endLoop = propTestStep.getPropertyValue("StopLoop").toString()
+ 
+if (endLoop.toString() == "T")
+{
+ 	log.info ("Exit Groovy Data Source Looper")
+ 	assert true
+}
+else
+{
+ 	testRunner.gotoStepByName("Groovy Script - DataSource") //setStartStep
+}
+
+```
 **Working with REST API using JSonSlurper**
 
 ```groovy
