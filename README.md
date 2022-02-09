@@ -83,3 +83,36 @@ log.info 'after assertion'
 assert 20 == c
 
 ```
+**SOAP project / Groovy script - Conditions**
+
+```groovy
+boolean isPassed
+String grade
+
+isPassed = true
+//isPassed = false
+
+//if I'm passed exam my dad will buy me a bike
+
+if (isPassed == true){ //evaluates a boolean expression
+	log.info 'Hurray!! I got a bike..'
+}else{
+	log.error 'Better luck next time'
+}
+
+//How to handle multiple scenarious?
+//A - car
+//B - bike
+//C - nothing
+
+grade = 'A'
+
+if(grade == 'A'){
+	log.info 'You got a Car!!'
+}else if(grade == 'B'){
+	log.warn 'You got a bike'
+}else{
+	log.error 'You got nothing' 
+}
+
+```
