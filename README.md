@@ -62,3 +62,24 @@ testSuiteMap.each{
 log.info 'Done'
 
 ```
+**SOAP project / Groovy script - Standart assertions**
+
+```groovy
+String expectedName, actualName
+
+expectedName = 'John'
+actualName = 'John'
+
+int a, b, c
+a = 10
+b = 10 
+
+c = a + b
+
+log.info 'before assertion'
+assert expectedName == actualName, "names are not matching, expected name is $expectedName but actual name was $actualName"
+log.info 'after assertion'
+
+assert 20 == c
+
+```
