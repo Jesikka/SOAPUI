@@ -40,3 +40,24 @@ sql.eachRow(sqlStmt){
 }
 
 ```
+**SOAP project / Groovy script - Reading project artefacts**
+
+```groovy
+log.info testRunner.testCase.name
+log.info testRunner.testCase.testSuite.name
+log.info testRunner.testCase.testSuite.project.name
+log.info testRunner.testCase.testSuite.project.workspace.name
+
+log.info testRunner.testCase.testSuite.project.getTestSuiteByName('TS02_Test Suite to test bank service').getTestCaseByName('TC01_To test getBank operation').name
+
+def testSuiteMap = testRunner.testCase.testSuite.project.testSuites
+
+//loop through the map and print the values
+
+testSuiteMap.each{
+	tsEntry ->
+	log.info tsEntry.key
+}
+log.info 'Done'
+
+```
