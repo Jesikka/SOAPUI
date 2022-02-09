@@ -65,6 +65,43 @@ else
 }
 
 ```
+**REST project / Groovy script - Read Data from excel and Direct calls of Test Steps**
+
+```groovy
+
+// Import the libraries
+import jxl.*
+import jxl.write.*
+//Create a file instance
+def excelFilePath = "C:\\Users\\ib075\\Desktop\\SOAPUI\\pets.xls"
+File excelFile = new File(excelFilePath)
+
+//Create workbook instance
+Workbook workbook = Workbook.getWorkbook(excelFile)
+//Load the sheet
+jxl.Sheet sheet = workbook.getSheet(0)
+// I wont to read the data in the sheet
+int noOfRows = sheet.getRows()-1   //number of rows in the excel
+log.info "noOfRows = $noOfRows"
+//need to loop through the records and print data
+def petId, petName
+
+for(int rowIdx in 1..noOfRows){
+	//read the contents of the cell
+	log.warn '------------------------------------------'
+	petId = sheet.getCell(0,rowIdx).getContents()
+	petName = sheet.getCell(1,rowIdx).getContents()
+	log.info "Setting petId = $petId, petName = $petName to test case properties"
+	testRunner.testCase.setPropertyValue('pet_id', petId)
+	testRunner.testCase.setPropertyValue('pet_name', petName)
+	//Thread.sleep(5000)
+	//execute the addPet operation dynamically through groovy
+	testRunner.testCase.getTestStepByName('addPet').run(testRunner, context)
+}
+//close it
+
+```
+
 **Working with REST API using JSonSlurper**
 
 ```groovy
