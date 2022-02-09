@@ -26,6 +26,7 @@ import groovy.sql.*
 //Read data from database table
 
 String sqlStmt = 'SELECT * FROM BLZ_DATA'
+//JDBC Connection string here: https://www.soapui.org/docs/jdbc/reference/jdbc-drivers/
 def databaseUrl = 'jdbc:mysql://localhost:8080:/automation?user=root&password=root'
 def username = 'root'
 def password = 'root'
